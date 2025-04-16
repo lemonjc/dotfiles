@@ -1,10 +1,15 @@
+# macos
+if [[ -f "opt/homebrew/bin/brew" ]]; then
+    eval "$(opt/homebrew/bin/brew shellenv)"
+fi
+
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
 # Download Zinit, if it's not there yet
 if [ ! -d "$ZINIT_HOME" ]; then
-   mkdir -p "$(dirname $ZINIT_HOME)"
-   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+    mkdir -p "$(dirname $ZINIT_HOME)"
+    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 
 # Source/Load zinit
@@ -66,3 +71,8 @@ alias ls='ls --color'
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
+
+# wsl2-ssh-agent
+if ( [[ $(uname -r) == *"microsoft"* ]] || grep -qi "microsoft" /proc/version 2>/dev/null ) && [[ -f /usr/sbin/wsl2-ssh-agent ]]; then
+    eval "$(/usr/sbin/wsl2-ssh-agent)"
+fi
