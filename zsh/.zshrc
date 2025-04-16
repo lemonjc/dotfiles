@@ -69,8 +69,13 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 alias ls='ls --color'
 
 # Shell integrations
-eval "$(fzf --zsh)"
-eval "$(zoxide init --cmd cd zsh)"
+if command -v fzf >/dev/null 2>&1; then
+    eval "$(fzf --zsh)"
+fi
+
+if command -v zoxide >/dev/null 2>&1; then
+    eval "$(zoxide init --cmd cd zsh)"
+fi
 
 # wsl2-ssh-agent
 if ( [[ $(uname -r) == *"microsoft"* ]] || grep -qi "microsoft" /proc/version 2>/dev/null ) && [[ -f /usr/sbin/wsl2-ssh-agent ]]; then
