@@ -67,6 +67,12 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Aliases
 alias ls='ls --color'
+alias grep='grep --color=always'
+
+# Man Page
+if command -v nvim >/dev/null 2>&1; then
+    export MANPAGER='nvim +Man!'
+fi
 
 # eza Aliases
 if command -v eza >/dev/null 2>&1; then
